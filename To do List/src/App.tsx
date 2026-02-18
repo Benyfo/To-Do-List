@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, type ChangeEvent, type MouseEvent } from "react";
+import "./App.css";
+import WelcomePage from "./components/WelcomePage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number>(0);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(`Input value is ${event.currentTarget.value}!`);
+  };
+
+  const handleBtnClick = (event: MouseEvent<HTMLButtonElement>) => {
+    console.log(`btn with id: ${event.currentTarget.id} has targeted!`);
+    setCount((prev) => prev + 1);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <WelcomePage name="Benyamin" age={20} />
+
+      <input
+        className="bg-black placeholder-white p-2 rounded-lg mt-5 caret-red-600 text-white"
+        type="text"
+        placeholder="input value"
+        onChange={handleInputChange}
+      />
+
+      <p className="my-5">Count : {count}</p>
+      <button
+        id="btn-increase-count"
+        className="hover:bg-red-600 border-2 border-black hover:scale-105 transition-all duration-200"
+        onClick={handleBtnClick}
+      >
+        Click me
+      </button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
